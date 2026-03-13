@@ -1,0 +1,38 @@
+{
+  "name": "shopclaw-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for searching 364M+ Shopify products via ShopClaw.dev API",
+  "license": "MIT",
+  "bin": {
+    "shopclaw-mcp": "./dist/server.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "@types/node": "^22.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "shopify",
+    "shopclaw",
+    "product-search",
+    "ai-agent",
+    "claude",
+    "model-context-protocol"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/h3nri-dev/shopclaw-mcp"
+  },
+  "homepage": "https://www.shopclaw.dev"
+}

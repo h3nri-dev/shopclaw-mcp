@@ -1,0 +1,155 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ShopClaw.dev API",
+    "description": "Search 364M+ Shopify products by keyword, brand, and price range.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://www.shopclaw.dev"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.shopclaw.dev"
+    }
+  ],
+  "paths": {
+    "/api/search": {
+      "post": {
+        "operationId": "searchProducts",
+        "summary": "Search Shopify products",
+        "description": "Search across 364M+ indexed Shopify products with optional brand and price filters.",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["query"],
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Search query, e.g. 'wireless headphones', 'organic coffee'"
+                  },
+                  "platform": {
+                    "type": "string",
+                    "enum": ["shopify"],
+                    "default": "shopify",
+                    "description": "Platform to search"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 200,
+                    "default": 10,
+                    "description": "Number of results to return"
+                  },
+                  "filters": {
+                    "type": "object",
+                    "properties": {
+                      "vendor": {
+                        "type": "string",
+                        "description": "Filter by brand/vendor name"
+                      },
+                      "price_min": {
+                        "type": "number",
+                        "description": "Minimum price in USD"
+                      },
+                      "price_max": {
+                        "type": "number",
+                        "description": "Maximum price in USD"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "hits": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "object",
+                          "properties": {
+                            "value": { "type": "integer" }
+                          }
+                        },
+                        "hits": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_source": {
+                                "type": "object",
+                                "properties": {
+                                  "title": { "type": "string" },
+                                  "brand": { "type": "string" },
+                                  "url": { "type": "string" },
+                                  "description": { "type": "string" },
+                                  "gallery": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "url": { "type": "string" }
+                                      }
+                                    }
+                                  },
+                                  "prices": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "currency": { "type": "string" },
+                                        "price": { "type": "number" },
+                                        "dollar": { "type": "number" }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "_meta": {
+                      "type": "object",
+                      "properties": {
+                        "freeCredit": { "type": "string" },
+                        "balance": { "type": "string" },
+                        "usageThisMonth": { "type": "integer" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Invalid or missing API key" },
+          "402": { "description": "Insufficient credits" },
+          "429": { "description": "Rate limit exceeded" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "API key from https://www.shopclaw.dev/dashboard/api-keys"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "ShopClaw.dev",
+  "name_for_model": "shopclaw",
+  "description_for_human": "Search 364M+ Shopify products by keyword, brand, and price.",
+  "description_for_model": "Search across 364M+ indexed Shopify products. Supports full-text search by keyword, brand/vendor filtering, and USD price range filtering. Returns product title, brand, URL, image, price, and currency. Use when the user asks about e-commerce products, product research, competitor pricing, market analysis, or finding items on Shopify stores.",
+  "auth": {
+    "type": "service_http",
+    "authorization_type": "bearer"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://www.shopclaw.dev/.well-known/openapi.json"
+  },
+  "logo_url": "https://www.shopclaw.dev/icon.svg",
+  "contact_email": "support@shopclaw.dev",
+  "legal_info_url": "https://www.shopclaw.dev/docs"
+}
